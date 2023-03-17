@@ -37,6 +37,10 @@ function ConvertHandler() {
     if (matches && matches.length > 1) {
       return 'invalid number';
     }
+
+    if (matches && matches.length == 1) {
+      return 'Implement fraction';
+    }
     
     // Extract the numerical value from the input string
     const value = extractNumberFromString(input);
@@ -58,9 +62,9 @@ function ConvertHandler() {
     if (!unit || !this.spellOutUnit(unit)) {
       return "invalid unit";
     }
-
+    if(unit == 'l') return 'L';
     // Otherwise, return the unit
-    return unit.toLowerCase();
+    return unit;
   };
 
   this.getReturnUnit = function (initUnit) {
@@ -158,7 +162,7 @@ function ConvertHandler() {
         result = null;
     }
   
-    return result;
+    return result.toFixed(5);
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
@@ -171,7 +175,7 @@ function ConvertHandler() {
 }
 // const ConvertHandler = require('./ConvertHandler.js');
 const convertHandler = new ConvertHandler();
-const input = "3.1mi";
+const input = "3.1L";
 const num = convertHandler.getNum(input)
 const unit = convertHandler.getUnit(input)
 const returnUnit = convertHandler.getReturnUnit(unit)
