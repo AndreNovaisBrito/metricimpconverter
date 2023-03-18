@@ -35,6 +35,14 @@ suite("Unit Tests", function () {
         assert.strictEqual(convertHandler.getUnit("22kg"), 'kg');
         assert.strictEqual(convertHandler.getUnit("22km"), 'km');
       });
+      test("Read SpellOut Units", () => {
+        assert.strictEqual(convertHandler.spellOutUnit("gal"), 'gallons');
+        assert.strictEqual(convertHandler.spellOutUnit("lbs"), 'pounds');
+        assert.strictEqual(convertHandler.spellOutUnit("mi"), 'miles');
+        assert.strictEqual(convertHandler.spellOutUnit("l"), 'liters');
+        assert.strictEqual(convertHandler.spellOutUnit("kg"), 'kilograms');
+        assert.strictEqual(convertHandler.spellOutUnit("km"), 'kilometers');
+      });
 
     
   });
