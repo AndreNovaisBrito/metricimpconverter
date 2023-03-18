@@ -1,8 +1,24 @@
 function ConvertHandler() {
+  function getFraction(input) {
+    const fractionRegex = /^(\d+(\.\d+)?)?\/(\d+(\.\d+)?)?/;
+    const match = input.match(fractionRegex);
+    if (!match) {
+      return null; // return null if input does not contain a fraction
+    }
+    const numerator = match[1] ? Number(match[1]) : 1; // if no numerator, assume it's 1
+    const denominator = Number(match[3]); // denominator is always present
+    return numerator / denominator;
+  }
+  
   function extractNumberFromString(input) {
+
+    const matches = input.match(/\//g);
+    if (matches && matches.length == 1) {
+      return getFraction(input);
+    }
     // Use a regular expression to match a number at the start of the string
     const numberMatch = input.match(/^\d+(\.\d+)?/);
-
+    
     // If a number was found, convert it to a number type and return it
     if (numberMatch) {
       return Number(numberMatch[0]);
@@ -15,6 +31,7 @@ function ConvertHandler() {
   function extractUnitFromString(input) {
     // Use a regular expression to match the unit at the end of the string
     const unitMatch = input.match(/[a-zA-Z]+$/);
+
 
     // If a unit was found, return it
     if (unitMatch) {
@@ -38,16 +55,14 @@ function ConvertHandler() {
       return 'invalid number';
     }
 
-    if (matches && matches.length == 1) {
-      return 'Implement fraction';
-    }
+
     
     // Extract the numerical value from the input string
     const value = extractNumberFromString(input);
     
     // If the value is null, return an error
     if (value === null) {
-      return 'invalid number';
+      return 1;
     }
     
     // Otherwise, return the value
@@ -175,7 +190,7 @@ function ConvertHandler() {
 }
 // const ConvertHandler = require('./ConvertHandler.js');
 const convertHandler = new ConvertHandler();
-const input = "3.1L";
+const input = "1/2mi";
 const num = convertHandler.getNum(input)
 const unit = convertHandler.getUnit(input)
 const returnUnit = convertHandler.getReturnUnit(unit)
