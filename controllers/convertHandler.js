@@ -60,12 +60,11 @@ function ConvertHandler() {
     // Extract the numerical value from the input string
     const value = extractNumberFromString(input);
     
-    // If the value is null, return an error
+    //Default Value
     if (value === null) {
       return 1;
     }
     
-    // Otherwise, return the value
     return value;
   };
 
@@ -74,12 +73,12 @@ function ConvertHandler() {
     const unit = extractUnitFromString(input);
 
     // If the unit is invalid, return 'invalid unit'
-    if (!unit || !this.spellOutUnit(unit)) {
+    if (!unit || this.spellOutUnit(unit)=='invalid unit') {
       return "invalid unit";
     }
-    if(unit == 'l') return 'L';
+    if(unit == 'l' || unit == 'L') return 'L';
     // Otherwise, return the unit
-    return unit;
+    return unit.toLowerCase();
   };
 
   this.getReturnUnit = function (initUnit) {
@@ -111,6 +110,7 @@ function ConvertHandler() {
     } else {
       result = null;
     }
+    if (result == null) return 'invalid unit'
   
     return result;
   };
@@ -149,11 +149,14 @@ function ConvertHandler() {
   };
 
   this.convert = function (initNum, initUnit) {
+    if(this.getNum(initNum) == 'invalid number' && this.getUnit(initUnit) == 'invalid unit' && typeof initNum == 'string') return "invalid number and unit"
+    if(this.getNum(initNum) == 'invalid number' && typeof initNum == 'string') return "invalid number"
+    if(this.getUnit(initUnit) == 'invalid unit') return "invalid unit"
+
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     let result;
-  
     switch (initUnit.toLowerCase()) {
       case 'gal':
         result = initNum * galToL;
@@ -176,13 +179,16 @@ function ConvertHandler() {
       default:
         result = null;
     }
-  
-    return result.toFixed(5);
+    if(result == null) return 'invalid unit'
+    return Number(result.toFixed(5));
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
+    if(this.getNum(initNum) == 'invalid number' && this.getUnit(initUnit) == 'invalid unit' && typeof initNum == 'string') return "invalid number and unit"
+    if(this.getNum(initNum) == 'invalid number' && typeof initNum == 'string') return "invalid number"
+    if(this.getUnit(initUnit) == 'invalid unit') return "invalid unit"
+   
     let result;
-  
     result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
   
     return result;
@@ -190,7 +196,7 @@ function ConvertHandler() {
 }
 // const ConvertHandler = require('./ConvertHandler.js');
 const convertHandler = new ConvertHandler();
-const input = "1/2mi";
+const input = "23l";
 const num = convertHandler.getNum(input)
 const unit = convertHandler.getUnit(input)
 const returnUnit = convertHandler.getReturnUnit(unit)

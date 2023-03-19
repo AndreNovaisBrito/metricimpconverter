@@ -49,5 +49,21 @@ suite("Unit Tests", function () {
       assert.strictEqual(convertHandler.getReturnUnit("kg"), "lbs");
       assert.strictEqual(convertHandler.getReturnUnit("km"), "mi");
     });
+    test("Accept Uppercase", () => {
+        assert.strictEqual(convertHandler.getReturnUnit("GAL"), "L");
+        assert.strictEqual(convertHandler.getReturnUnit("LBS"), "kg");
+        assert.strictEqual(convertHandler.getReturnUnit("MI"), "km");
+        assert.strictEqual(convertHandler.getReturnUnit("L"), "gal");
+        assert.strictEqual(convertHandler.getReturnUnit("KG"), "lbs");
+        assert.strictEqual(convertHandler.getReturnUnit("KM"), "mi");
+      });
+      test("Convert Tests", () => {
+        assert.strictEqual(convertHandler.convert(1, "gal"), 3.78541);
+        assert.strictEqual(convertHandler.convert(1, "lbs"), 0.45359);
+        assert.strictEqual(convertHandler.convert(1, "mi"), 1.60934);
+        assert.strictEqual(convertHandler.convert(1, "l"), 0.26417);
+        assert.strictEqual(convertHandler.convert(1, "kg"), 2.20462);
+        assert.strictEqual(convertHandler.convert(1, "km"), 0.62137);
+      });
   });
 });
