@@ -65,5 +65,20 @@ suite("Unit Tests", function () {
         assert.strictEqual(convertHandler.convert(1, "kg"), 2.20462);
         assert.strictEqual(convertHandler.convert(1, "km"), 0.62137);
       });
+      test("Whole number 2", function () {
+        assert.strictEqual(convertHandler.getNum("32L"), 32);
+      });
+      test("Whole number 3", function () {
+        assert.strictEqual(convertHandler.getNum("32L"), 32);
+      });
+      test("Whole number 4", function () {
+        assert.strictEqual(convertHandler.getNum("32L"), 32);
+      });
+      test("Whole number 5", function () {
+        assert.strictEqual(convertHandler.getNum("32L"), 32);
+      });
+      test("Whole number 6", function () {
+        assert.strictEqual(convertHandler.getNum("32L"), 32);
+      });
   });
 });
