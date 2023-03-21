@@ -77,7 +77,7 @@ function ConvertHandler() {
       return "invalid unit";
     }
     if(unit == 'l' || unit == 'L') return 'L';
-    // Otherwise, return the unit
+    // Otherwise, return the unit in lower case
     return unit.toLowerCase();
   };
 
@@ -105,12 +105,9 @@ function ConvertHandler() {
           result = 'mi';
           break;
         default:
-          result = null;
-      }
-    } else {
-      result = null;
+          result = 'invalid unit';
+        }
     }
-    if (result == null) return 'invalid unit'
   
     return result;
   };
@@ -149,14 +146,16 @@ function ConvertHandler() {
   };
 
   this.convert = function (initNum, initUnit) {
-    if(this.getNum(initNum) == 'invalid number' && this.getUnit(initUnit) == 'invalid unit' && typeof initNum == 'string') return "invalid number and unit"
-    if(this.getNum(initNum) == 'invalid number' && typeof initNum == 'string') return "invalid number"
+    if(initNum == 'invalid number' && this.getUnit(initUnit) == 'invalid unit') return "invalid number and unit"
+    if(initNum == 'invalid number') return "invalid number"
     if(this.getUnit(initUnit) == 'invalid unit') return "invalid unit"
 
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
+
     let result;
+
     switch (initUnit.toLowerCase()) {
       case 'gal':
         result = initNum * galToL;
@@ -177,17 +176,17 @@ function ConvertHandler() {
         result = initNum / miToKm;
         break;
       default:
-        result = null;
+        return 'invalid unit'
     }
-    if(result == null) return 'invalid unit'
     return Number(result.toFixed(5));
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-    if(this.getNum(initNum) == 'invalid number' && this.getUnit(initUnit) == 'invalid unit' && typeof initNum == 'string') return "invalid number and unit"
-    if(this.getNum(initNum) == 'invalid number' && typeof initNum == 'string') return "invalid number"
+    
+    if(initNum == 'invalid number' && this.getUnit(initUnit) == 'invalid unit') return "invalid number and unit"
+    if(initNum == 'invalid number') return "invalid number"
     if(this.getUnit(initUnit) == 'invalid unit') return "invalid unit"
-   
+
     let result;
     result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
   
@@ -206,12 +205,12 @@ const result = convertHandler.getString(num, unit, convert, returnUnit)
   
 
 
-console.log("get num: ", num);
-console.log("get unit: ", unit);
-console.log("getReturnUnit: ", returnUnit);
-console.log("spellOutUnit", spellOutUnit);
-console.log("convert ", convert);
-console.log("result", result)
+// console.log("get num: ", num);
+// console.log("get unit: ", unit);
+// console.log("getReturnUnit: ", returnUnit);
+// console.log("spellOutUnit", spellOutUnit);
+// console.log("convert ", convert);
+// console.log("result", result)
 
 
 
