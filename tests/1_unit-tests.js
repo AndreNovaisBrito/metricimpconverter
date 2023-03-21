@@ -120,8 +120,6 @@ suite("Unit Tests", function () {
     test("Convert 1 kilogram to pounds", () => {
       assert.approximately(convertHandler.convert(1, "kg"), 2.20462, 0.1);
     });
-    test("Convert 1 kilogram to pounds", () => {
-        assert.approximately(convertHandler.convert(1, "kg"), 2.20462, 0.1);
-      });
+
   });
 });
